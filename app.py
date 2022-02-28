@@ -9,6 +9,7 @@ from engineio.payload import Payload
 import torch
 import numpy as np
 from PIL import Image
+import os
 
 Payload.max_decode_packets = 4000
 app = Flask(__name__)
@@ -95,5 +96,6 @@ def video():
     return Response(videocap(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
-    socketio.run(app,port=9990 ,debug=True)
+   envPort = int(os.environ.get('PORT', 8080))
+   app.run(port = envPort, debug=True)
    
